@@ -63,5 +63,7 @@ public class BoardController {
         boardTemp.setContent(board.getContent());
 
         return "redirect:/board/list";
+
+
     }
 }

@@ -16,6 +16,6 @@ public class BoardController {
 
     @PostMapping("/save")
     public String save(){
-        return null;
+        return "test";
     }
 }

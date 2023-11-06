@@ -3,6 +3,8 @@ package ack.board.controller;
 import ack.board.dto.BoardDto;
 import ack.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,5 +62,11 @@ public class BoardController {
     public String delete(@PathVariable Long id){
         boardService.delete(id);
         return "redirect:/board/list";
+    }
+
+    @GetMapping("/board/paging")
+    public String paging(@PageableDefault(page = 1)Pageable pageable, Model model){
+        int pageNumber = pageable.getPageNumber();
+
     }
 }

@@ -40,8 +40,7 @@ public class BoardService {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if (optionalBoardEntity.isPresent()){
             BoardEntity boardEntity = optionalBoardEntity.get();
-            BoardDto boardDto = BoardDto.toBoardDTO(boardEntity);
-            return boardDto;
+            return BoardDto.toBoardDTO(boardEntity);
         } else {
             return null;
         }
@@ -52,5 +51,9 @@ public class BoardService {
         BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDto);
         boardRepository.save(boardEntity);
         return findById(boardDto.getId());
+    }
+
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
     }
 }

@@ -32,6 +32,13 @@ public class BoardController {
         List<BoardDto> boardDtoList = boardService.findAll();
         model.addAttribute("boardList",boardDtoList);
         return "list";
+    }
+    @GetMapping("/{id}")
+    public String findById(@PathVariable  Long id, Model model){
+        boardService.updateHits(id);
+        BoardDto boardDto = boardService.findById(id);
+        model.addAttribute("board", boardDto);
+        return "detail";
 
     }
 }

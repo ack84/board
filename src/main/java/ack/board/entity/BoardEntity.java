@@ -25,7 +25,7 @@ public class BoardEntity extends BaseEntity {
     private String boardTitle;
 
     @Column(length = 500)
-    private String boardContent;
+    private String boardContents;
 
     @Column
     private int boardHits;
@@ -33,12 +33,23 @@ public class BoardEntity extends BaseEntity {
     public static BoardEntity toSaveEntity (BoardDto boardDto){
         BoardEntity boardEntity = new BoardEntity();
 
+        boardEntity.setBoardWriter(boardDto.getBoardWriter());
+        boardEntity.setBoardPass(boardDto.getBoardPass());
+        boardEntity.setBoardTitle(boardDto.getBoardTitle());
+        boardEntity.setBoardContents(boardDto.getBoardContents());
+        boardEntity.setBoardHits(0);
+        return boardEntity;
+    }
+
+    public static BoardEntity toUpdateEntity(BoardDto boardDto) {
+        BoardEntity boardEntity = new BoardEntity();
+
         boardEntity.setId(boardDto.getId());
         boardEntity.setBoardWriter(boardDto.getBoardWriter());
         boardEntity.setBoardPass(boardDto.getBoardPass());
         boardEntity.setBoardTitle(boardDto.getBoardTitle());
-        boardEntity.setBoardContent(boardDto.getBoardContent());
-        boardEntity.setBoardHits(0);
+        boardEntity.setBoardContents(boardDto.getBoardContents());
+        boardEntity.setBoardHits(boardDto.getBoardHits());
         return boardEntity;
     }
 }

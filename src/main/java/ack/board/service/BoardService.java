@@ -47,4 +47,10 @@ public class BoardService {
         }
 
     }
+
+    public BoardDto update(BoardDto boardDto) {
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDto);
+        boardRepository.save(boardEntity);
+        return findById(boardDto.getId());
+    }
 }

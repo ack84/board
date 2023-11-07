@@ -4,6 +4,10 @@ import ack.board.dto.BoardDto;
 import ack.board.entity.BoardEntity;
 import ack.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,5 +59,16 @@ public class BoardService {
 
     public void delete(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    public Page<BoardDto> paging(Pageable pageable) {
+        //page는 0부터 시작함
+        int page = pageable.getPageNumber() -1 ;
+        int pageLimit = 3; //한페이지에 보여지는 게시글 수 
+        Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.Direction.DESC,"id"));
+
+        Page<BoardDto> boardDtos = boardEntities.map(board -> new BoardDto(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        return boardDtos;
+
     }
 }
